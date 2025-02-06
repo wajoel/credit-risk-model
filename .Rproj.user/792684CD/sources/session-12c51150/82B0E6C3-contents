@@ -1,0 +1,13 @@
+# Install and load required libraries
+install.packages("pROC")
+library(pROC)
+
+# Predict probabilities for Logistic Regression model
+predictions_lr_prob <- predict(model_lr, newdata = test_data, type = "response")
+
+# ROC Curve for Logistic Regression
+roc_curve <- roc(test_data$Credit.risk, predictions_lr_prob)
+plot(roc_curve, main = "ROC Curve for Logistic Regression", col = "blue", 
+     family = "Times New Roman", lwd = 2)
+abline(a = 0, b = 1, col = "gray", lty = 2)
+text(0.7, 0.3, paste("AUC =", round(roc_curve$auc, 2)), col = "blue", cex = 1.5)
